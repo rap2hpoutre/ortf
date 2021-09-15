@@ -1,29 +1,12 @@
-# Next.js + Tailwind CSS Example
+# Statistiques du subreddit /r/france
 
-This example shows how to use [Tailwind CSS](https://tailwindcss.com/) [(v2.2)](https://blog.tailwindcss.com/tailwindcss-2-2) with Next.js. It follows the steps outlined in the official [Tailwind docs](https://tailwindcss.com/docs/guides/nextjs).
+_This readme is in French._
 
-It uses the new [`Just-in-Time Mode`](https://tailwindcss.com/docs/just-in-time-mode) for Tailwind CSS.
+L'ORTF (Observatoire de ReddiT France) est un site de présentation de statistiques sur le subreddit [/r/france](https://www.reddit.com/r/france) sous forme de graphiques.
 
-## Preview
-
-Preview the example live on [StackBlitz](http://stackblitz.com/):
-
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/vercel/next.js/tree/canary/examples/with-tailwindcss)
-
-## Deploy your own
-
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example):
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-tailwindcss&project-name=with-tailwindcss&repository-name=with-tailwindcss)
-
-## How to use
-
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init) or [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/) to bootstrap the example:
-
-```bash
-npx create-next-app --example with-tailwindcss with-tailwindcss-app
-# or
-yarn create next-app --example with-tailwindcss with-tailwindcss-app
-```
-
-Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
+ - Site : https://ortf.vercel.app/
+ - Données récupérées via : https://api.pushshift.io/reddit/search/submission/?subreddit=france.
+ - Codé à l'arrache avec [Next.js](https://nextjs.org/), déployé sur [Vercel](https://vercel.com/)
+ - Les graphiques sont rendus grâce à la superbe librairie [Nivo](https://nivo.rocks/)
+ - Il y a des erreurs et des biais, n'hésitez pas à me contacter pour les corriger.
+ - Les données sont mise à jour à la main, ça passera par des github actions ensuite.

@@ -1,4 +1,5 @@
-module.exports = [
+// Should be improved.
+export default [
   "de",
   "la",
   "le",
@@ -95,7 +96,6 @@ module.exports = [
   "quoi",
   "bien",
   "leur",
-  "pays",
   "va",
   "comment",
   "J'ai",

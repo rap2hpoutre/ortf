@@ -1,13 +1,16 @@
-const stopWords = require("./stop-words");
+import stopWords from "./stop-words";
 
-export function wordFrequency(string) {
+export function wordFrequency(string, withStopWords = false) {
   return Object.entries(
     string
       .replace(/[.,;!?_]/g, " ")
       .toLowerCase()
       .split(/\s/)
       .map((word) => word.trim())
-      .filter((word) => word.length > 0 && !stopWords.includes(word))
+      .filter(
+        (word) =>
+          word.length > 0 && (withStopWords || !stopWords.includes(word))
+      )
       .reduce(
         (map, word) =>
           Object.assign(map, {
@@ -17,5 +20,5 @@ export function wordFrequency(string) {
       )
   )
     .map(([word, count]) => ({ word, count }))
-    .sort((a, b) => b.count - a.count);
+    .sort((a: { count: any }, b: { count: any }) => b.count - a.count);
 }

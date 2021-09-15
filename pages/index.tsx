@@ -173,6 +173,7 @@ export default function Home({ stats }) {
                   {stopWords.join(", ")}
                 </span>
               </li>
+              <li>ORTF signifie Observatoire de ReddiT France</li>
               <li>
                 <a
                   href="https://github.com/rap2hpoutre/ortf/issues"

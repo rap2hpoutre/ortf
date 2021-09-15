@@ -134,6 +134,15 @@
   resolved "https://registry.yarnpkg.com/@next/swc-win32-x64-msvc/-/swc-win32-x64-msvc-11.1.2.tgz#e15824405df137129918205e43cb5e9339589745"
   integrity sha512-e/pIKVdB+tGQYa1cW3sAeHm8gzEri/HYLZHT4WZojrUxgWXqx8pk7S7Xs47uBcFTqBDRvK3EcQpPLf3XdVsDdg==
 
+"@nivo/annotations@0.73.0":
+  version "0.73.0"
+  resolved "https://registry.yarnpkg.com/@nivo/annotations/-/annotations-0.73.0.tgz#6b88b3c1b58a3c8a3b5dcc114b1026c34c083a6f"
+  integrity sha512-1rLAX5tcQh1Zo8ToENIO2WI1va72UhKc9K3219rtGRhXsy3f2hbmRZiw/iOJCLqzGtmT8RIKA++hOExWSyh4dQ==
+  dependencies:
+    "@nivo/colors" "0.73.0"
+    "@react-spring/web" "9.2.4"
+    lodash "^4.17.21"
+
 "@nivo/arcs@0.73.0":
   version "0.73.0"
   resolved "https://registry.yarnpkg.com/@nivo/arcs/-/arcs-0.73.0.tgz#2211a0c41e8f6ed67374aeebdad607fbb3a1db2f"
@@ -154,6 +163,23 @@
     d3-time "^1.0.11"
     d3-time-format "^3.0.0"
 
+"@nivo/bar@^0.73.1":
+  version "0.73.1"
+  resolved "https://registry.yarnpkg.com/@nivo/bar/-/bar-0.73.1.tgz#86e59e25af151ead0c09298ec9caf133f38e957e"
+  integrity sha512-sBltCxCEgFV7kErW4K14OSUjsU1cmYAWWvKoelVI1NTJ0MWhH/Z4UVip6+Zk7/TOzdZntT0x3SE6cAc9Ov7rxg==
+  dependencies:
+    "@nivo/annotations" "0.73.0"
+    "@nivo/axes" "0.73.0"
+    "@nivo/colors" "0.73.0"
+    "@nivo/legends" "0.73.0"
+    "@nivo/recompose" "0.73.0"
+    "@nivo/scales" "0.73.0"
+    "@nivo/tooltip" "0.73.0"
+    "@react-spring/web" "9.2.4"
+    d3-scale "^3.2.3"
+    d3-shape "^1.2.2"
+    lodash "^4.17.21"
+
 "@nivo/bump@^0.73.0":
   version "0.73.0"
   resolved "https://registry.yarnpkg.com/@nivo/bump/-/bump-0.73.0.tgz#b7b48c657ad4c97f71a5a1fa85d4ccf0e13fa9b0"
@@ -165,6 +191,18 @@
     "@nivo/tooltip" "0.73.0"
     "@react-spring/web" "9.2.4"
     d3-shape "^1.3.5"
+
+"@nivo/calendar@^0.73.0":
+  version "0.73.0"
+  resolved "https://registry.yarnpkg.com/@nivo/calendar/-/calendar-0.73.0.tgz#bebd4cbbcbd7672bad5632d9a4d0cee28f03b6ae"
+  integrity sha512-loqJ16g8IgHJ4zf60ZaWhOE4NuMayG9TYZxHpjb77PKR7Zo/uu0CaWBOfh2fbv+9LbtsD1og1RllGzG80/IAGA==
+  dependencies:
+    "@nivo/legends" "0.73.0"
+    "@nivo/tooltip" "0.73.0"
+    d3-scale "^3.2.3"
+    d3-time "^1.0.10"
+    d3-time-format "^3.0.0"
+    lodash "^4.17.21"
 
 "@nivo/colors@0.73.0":
   version "0.73.0"
@@ -937,7 +975,7 @@ d3-scale@^3.2.3:
     d3-time "^2.1.1"
     d3-time-format "2 - 3"
 
-d3-shape@^1.3.5:
+d3-shape@^1.2.2, d3-shape@^1.3.5:
   version "1.3.7"
   resolved "https://registry.yarnpkg.com/d3-shape/-/d3-shape-1.3.7.tgz#df63801be07bc986bc54f63789b4fe502992b5d7"
   integrity sha512-EUkvKjqPFUAZyOlhY5gzCxCeI0Aep04LwIRpsZ/mLFelJiUfnK56jo5JMDSE7yyP2kLSb6LtF+S5chMk7uqPqw==
@@ -958,7 +996,7 @@ d3-shape@^1.3.5:
   dependencies:
     d3-array "2"
 
-d3-time@^1.0.11:
+d3-time@^1.0.10, d3-time@^1.0.11:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/d3-time/-/d3-time-1.1.0.tgz#b1e19d307dae9c900b7e5b25ffc5dcc249a8a0f1"
   integrity sha512-Xh0isrZ5rPYYdqhAVk8VLnMEidhz5aP7htAADH6MfzgmmicPkTo8LhkLxci61/lCB7n7UmE3bN0leRt+qvkLxA==

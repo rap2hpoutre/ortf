@@ -19,17 +19,9 @@ export default function Wrapper({ children }) {
 
       <footer className="flex items-center justify-center w-full h-24 border-t bg-white">
         <div className="flex items-center justify-center">
-          <div className="p-2">
-            Fait avec 👣 par{" "}
-            <a
-              href="https://twitter.com/rap2h"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-500 hover:underline"
-            >
-              rap2h
-            </a>{" "}
-            -{" "}
+          <div className="p-2 text-center">
+            Fait avec 👣 par rap2h
+            <br />
             <Link href="/data">
               <a className="text-blue-500 hover:underline">Données brutes</a>
             </Link>{" "}

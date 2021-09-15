@@ -18,9 +18,10 @@ export default function Home({ stats }) {
         <div className="bg-white rounded-xl shadow px-2 py-4 lg:p-6 lg:col-span-2">
           <div className="text-center">
             <div className="text-sm font-semibold text-gray-900 mb-2">
-              Évolution des 5 sites les plus partagés
+              Évolution des 5 sites les plus postés
               <div className="text-sm font-normal text-gray-500">
-                (sauf reddit, imgur et youtube)
+                Basé sur le nombre de posts (hors reddit, imgur et youtube),
+                évolution par semaine
               </div>
             </div>
             <div style={{ height: "350px" }}>
@@ -36,7 +37,7 @@ export default function Home({ stats }) {
         <div className="bg-white rounded-xl shadow px-2 py-4 lg:p-6">
           <div className="text-center">
             <div className="text-sm font-semibold text-gray-900 mb-2">
-              Sites partagés depuis le {startDateInFrench}
+              Top sites postés depuis le {startDateInFrench}
             </div>
             <div style={{ height: "350px" }}>
               <ResponsivePie
@@ -59,7 +60,7 @@ export default function Home({ stats }) {
         <div className="bg-white rounded-xl shadow px-2 py-4 lg:p-6">
           <div className="text-center">
             <div className="text-sm font-semibold text-gray-900 mb-2">
-              Sites partagés depuis le {startDateInFrench}
+              Top sites postés depuis le {startDateInFrench}
             </div>
             <div style={{ height: "350px" }}>
               <ResponsiveBar
@@ -99,9 +100,10 @@ export default function Home({ stats }) {
         <div className="bg-white rounded-xl shadow px-2 py-4 lg:p-6 lg:col-span-2">
           <div className="text-center">
             <div className="text-sm font-semibold text-gray-900 mb-2">
-              Évolution des 10 mots les plus partagés
+              Évolution des 10 mots les plus présents dans les titres
               <div className="text-sm font-normal text-gray-500">
-                Voir les mots exclus en bas de page
+                Nombre de fois que les noms apparaissent dans les titre des
+                posts, voir les mots exclus en bas de page
               </div>
             </div>
             <div style={{ height: "350px" }}>
@@ -117,7 +119,7 @@ export default function Home({ stats }) {
         <div className="bg-white rounded-xl shadow px-2 py-4 lg:p-6">
           <div className="text-center">
             <div className="text-sm font-semibold text-gray-900 mb-2">
-              Mots partagés depuis le {startDateInFrench}
+              Fréquence des mots dans les titres depuis le {startDateInFrench}
             </div>
             <div style={{ height: "350px" }}>
               <ResponsivePie
@@ -140,7 +142,7 @@ export default function Home({ stats }) {
         <div className="bg-white rounded-xl shadow px-2 py-4 lg:p-6">
           <div className="text-center">
             <div className="text-sm font-semibold text-gray-900 mb-2">
-              Mots partagés depuis le {startDateInFrench}
+              Fréquence des mots dans les titres depuis le {startDateInFrench}
             </div>
             <div style={{ height: "350px" }}>
               <ResponsiveBar

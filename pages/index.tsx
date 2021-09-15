@@ -15,7 +15,7 @@ export default function Home({ stats }) {
   return (
     <Wrapper>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-7 w-full">
-        <div className="bg-white rounded-xl shadow-one p-6 lg:col-span-2">
+        <div className="bg-white rounded-xl shadow px-2 py-4 lg:p-6 lg:col-span-2">
           <div className="text-center">
             <div className="text-sm font-semibold text-gray-900 mb-2">
               Évolution des 5 sites les plus partagés
@@ -26,14 +26,14 @@ export default function Home({ stats }) {
             <div style={{ height: "350px" }}>
               <ResponsiveAreaBump
                 colors={{ scheme: "set3" }}
-                margin={{ top: 40, right: 90, bottom: 30, left: 30 }}
+                margin={{ top: 40, right: 80, bottom: 30, left: 20 }}
                 data={stats.urlFrequencyDataForBumpArea}
               />
             </div>
           </div>
         </div>
 
-        <div className="bg-white rounded-xl shadow-one p-6">
+        <div className="bg-white rounded-xl shadow px-2 py-4 lg:p-6">
           <div className="text-center">
             <div className="text-sm font-semibold text-gray-900 mb-2">
               Sites partagés depuis le {startDateInFrench}
@@ -56,7 +56,7 @@ export default function Home({ stats }) {
             </div>
           </div>
         </div>
-        <div className="bg-white rounded-xl shadow-one p-6">
+        <div className="bg-white rounded-xl shadow px-2 py-4 lg:p-6">
           <div className="text-center">
             <div className="text-sm font-semibold text-gray-900 mb-2">
               Sites partagés depuis le {startDateInFrench}
@@ -72,7 +72,7 @@ export default function Home({ stats }) {
           </div>
         </div>
 
-        <div className="bg-white rounded-xl shadow-one p-6 lg:col-span-2">
+        <div className="bg-white rounded-xl shadow px-2 py-4 lg:p-6 lg:col-span-2">
           <div className="text-center">
             <div className="text-sm font-semibold text-gray-900 mb-2">
               Nombre de posts par jour
@@ -96,7 +96,7 @@ export default function Home({ stats }) {
           </div>
         </div>
 
-        <div className="bg-white rounded-xl shadow-one p-6 lg:col-span-2">
+        <div className="bg-white rounded-xl shadow px-2 py-4 lg:p-6 lg:col-span-2">
           <div className="text-center">
             <div className="text-sm font-semibold text-gray-900 mb-2">
               Évolution des 10 mots les plus partagés
@@ -107,14 +107,14 @@ export default function Home({ stats }) {
             <div style={{ height: "350px" }}>
               <ResponsiveAreaBump
                 colors={{ scheme: "set3" }}
-                margin={{ top: 40, right: 90, bottom: 30, left: 30 }}
+                margin={{ top: 40, right: 80, bottom: 30, left: 20 }}
                 data={stats.wordFrequencyDataForBumpArea}
               />
             </div>
           </div>
         </div>
 
-        <div className="bg-white rounded-xl shadow-one p-6">
+        <div className="bg-white rounded-xl shadow px-2 py-4 lg:p-6">
           <div className="text-center">
             <div className="text-sm font-semibold text-gray-900 mb-2">
               Mots partagés depuis le {startDateInFrench}
@@ -137,7 +137,7 @@ export default function Home({ stats }) {
             </div>
           </div>
         </div>
-        <div className="bg-white rounded-xl shadow-one p-6">
+        <div className="bg-white rounded-xl shadow px-2 py-4 lg:p-6">
           <div className="text-center">
             <div className="text-sm font-semibold text-gray-900 mb-2">
               Mots partagés depuis le {startDateInFrench}
@@ -153,7 +153,7 @@ export default function Home({ stats }) {
           </div>
         </div>
 
-        <div className="bg-white rounded-xl shadow-one p-6  lg:col-span-2">
+        <div className="bg-white rounded-xl shadow px-2 py-4 lg:p-6  lg:col-span-2">
           <div className="text-left">
             <ul className="list-disc pl-5 p-3">
               <li>
@@ -170,6 +170,16 @@ export default function Home({ stats }) {
                 <span className="text-gray-500 text-sm">
                   {stopWords.join(", ")}
                 </span>
+              </li>
+              <li>
+                <a
+                  href="https://github.com/rap2hpoutre/ortf/issues"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-500 hover:underline"
+                >
+                  Signaler un problème ou proposer une amélioration
+                </a>
               </li>
             </ul>
           </div>

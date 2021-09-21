@@ -1,154 +1,146 @@
-// Sorry, Spaghetti. Please kill me now.
 import dayjs from "dayjs";
-import { wordFrequency } from "../utils/word-frequency";
-import { urlFrequency } from "../utils/url-frequency";
+import { wordFrequency } from "./word-frequency";
+import { urlFrequency } from "./url-frequency";
+import {
+  postsCountByDayForCalendar,
+  frequencyDataForBumpArea,
+  frequencyForBar,
+  frequencyForPie,
+  PostsCountByDayForCalendar,
+  FrequencyForBar,
+  FrequencyForPie,
+} from "./chartsData";
+import { AreaBumpInputSerie } from "@nivo/bump";
 
-export default function getStats() {
-  const posts = require("../data/france.json").filter(
-    // Seems like a spam
-    (e) => e.domain !== "starlightinternational786.world"
-  );
+const PERIOD_WEEK = 6;
 
-  // get posts count for each day
-  const postsCountByDay = posts.reduce((acc, post) => {
-    const key = post.date;
-    if (acc[key]) {
-      acc[key] += 1;
-    } else {
-      acc[key] = 1;
-    }
-    return acc;
-  }, {});
+export interface Stats {
+  totalPosts: number;
+  lastUpdate: string;
+  firstUpdate: string;
+  postsCountByDayForCalendar: PostsCountByDayForCalendar;
+  wordFrequencyDataForBumpArea: AreaBumpInputSerie[][];
+  wordFrequencyForPie: FrequencyForPie[];
+  wordFrequencyForBar: FrequencyForBar[];
+  urlFrequencyDataForBumpArea: AreaBumpInputSerie[][];
+  urlFrequencyForPie: FrequencyForPie[];
+  urlFrequencyForBar: FrequencyForBar[];
+}
 
-  const postsCountByDayForCalendar = Object.entries(postsCountByDay)
-    .slice(1, -1)
-    .map((e) => ({
-      day: e[0],
-      value: e[1],
-    }));
+interface Post {
+  date: string;
+  url: string;
+  title: string;
+  domain: string;
+  createdUtc: number;
+}
+interface Frequency {
+  word: string;
+  count: number;
+}
+type PostsByPeriod = Record<string, Post>;
+type PostsFrequency = Record<string, Frequency[]>;
 
-  const titles = posts.map((post) => post.title).join(" ");
-  const wordFrequencyResult = wordFrequency(titles);
-
-  // Create array of posts group by week
-  const postsByWeek: {} = posts.reduce((acc, post) => {
+function postsByPeriod(posts, period, format): PostsByPeriod {
+  return posts.reduce((acc, post) => {
     const date = dayjs(post.date);
-    const week = date.startOf("week").format("YYYY-MM-DD");
-    if (!acc[week]) {
-      acc[week] = [];
-    }
+    const week = date.startOf(period).format(format);
+    if (!acc[week]) acc[week] = [];
     acc[week].push(post);
     return acc;
   }, {});
+}
 
-  // Get frequency by week
-  const wordFrequencyByWeek = Object.entries(postsByWeek).reduce(
-    (acc, [week, p]: [string, any[]]) => {
-      const titles = p.map((post) => post.title).join(" ");
-      const frequency = wordFrequency(titles);
-      acc[week] = frequency.slice(0, 10);
-      return acc;
-    },
-    {}
+function postsFrequency(posts, callback): PostsFrequency {
+  return Object.entries(posts).reduce((acc, [k, p]: [string, any[]]) => {
+    const frequency = callback(p);
+    acc[k] = frequency.slice(0, 10);
+    return acc;
+  }, {});
+}
+
+function nWeeksAgo(x: number) {
+  return dayjs().subtract(x, "week").startOf("week").format("YYYY-MM-DD");
+}
+
+function nMonthsAgo(x: number) {
+  return dayjs().subtract(x, "month").startOf("month").format("YYYY-MM-DD");
+}
+
+function startOfNextWeek() {
+  return dayjs().startOf("week").format("YYYY-MM-DD");
+}
+
+function startOfNextMonth() {
+  return dayjs().startOf("month").format("YYYY-MM-DD");
+}
+
+function inWeekPeriod(post) {
+  return post.date >= nWeeksAgo(PERIOD_WEEK) && post.date < startOfNextWeek();
+}
+
+export default function getStats(): Stats {
+  const allPosts = require("../data/france.json").filter(
+    (e) => e.domain !== "starlightinternational786.world" // Seems like a spam
   );
 
-  const wordFrequencyDataForBumpArea = [];
-  for (const f of wordFrequencyResult.slice(0, 10)) {
-    wordFrequencyDataForBumpArea.push({
-      id: f.word,
-      data: Object.entries(wordFrequencyByWeek)
-        .map(([week, words]: [string, any[]]) => {
-          const word = words.find((word) => word.word === f.word);
-          return {
-            x: dayjs(week).format("DD/MM"),
-            y: word ? word.count : 0,
-          };
-        })
-        .reverse()
-        .slice(1, -1),
-    });
-  }
-
-  const urlFrequencyResult = urlFrequency(posts.map((post) => post.domain));
-  // Get url frequency by week
-  const urlFrequencyByWeek = Object.entries(postsByWeek).reduce(
-    (acc, [week, p]: [string, any[]]) => {
-      const urlFrequencyResult = urlFrequency(p.map((post) => post.domain));
-      acc[week] = urlFrequencyResult.slice(0, 10);
-      return acc;
-    },
-    {}
-  );
-
-  const urlFrequencyDataForBumpArea = [];
-  for (const f of urlFrequencyResult.slice(0, 5)) {
-    urlFrequencyDataForBumpArea.push({
-      id: f.word,
-      data: Object.entries(urlFrequencyByWeek)
-        .map(([week, urls]: [string, any[]]) => {
-          const url = urls.find((url) => url.word === f.word);
-          return {
-            x: dayjs(week).format("DD/MM"),
-            y: url ? url.count : 0,
-          };
-        })
-        .reverse()
-        .slice(1, -1),
-    });
-  }
-
-  const urlFrequencyForBar = [];
-  // let keysForUrlFrequencyForBar = [];
-  for (const [key, value] of Object.entries(urlFrequencyByWeek).slice(
-    1,
-    -1
-  ) as Array<Array<string | any>>) {
-    const res = {
-      id: dayjs(key).format("DD/MM"),
-    };
-    for (const f of value as Array<{ word: string; count: string }>)
-      res[f.word] = f.count;
-    urlFrequencyForBar.push(res);
-  }
-  const keysForUrlFrequencyForBar = urlFrequencyResult
-    .slice(0, 15)
-    .map((e) => e.word);
-
-  const wordFrequencyForBar = [];
-  for (const [key, value] of Object.entries(wordFrequencyByWeek).slice(1, -1)) {
-    const res = {
-      id: dayjs(key).format("DD/MM"),
-    };
-    for (const f of value as any) res[f.word] = f.count;
-    wordFrequencyForBar.push(res);
-  }
-  const keysForWordFrequencyForBar = wordFrequencyResult
-    .slice(0, 20)
-    .map((e) => e.word);
-
-  posts.map((post) => post.domain);
-  return {
-    wordFrequency: wordFrequencyResult.slice(0, 30),
-    wordFrequencyDataForBumpArea,
-    wordFrequencyForPie: wordFrequencyResult.slice(0, 15).map((f) => ({
-      id: f.word,
-      label: f.word,
-      value: f.count,
-    })),
-    wordFrequencyForBar: wordFrequencyForBar.reverse(),
-    keysForWordFrequencyForBar,
-    urlFrequency: urlFrequencyResult.slice(0, 30),
-    urlFrequencyForPie: urlFrequencyResult.slice(0, 15).map((f) => ({
-      id: f.word,
-      label: f.word,
-      value: f.count,
-    })),
-    postsCountByDayForCalendar,
-    urlFrequencyForBar: urlFrequencyForBar.reverse(),
-    urlFrequencyDataForBumpArea,
-    keysForUrlFrequencyForBar,
-    totalPosts: posts.length,
-    lastUpdate: dayjs(posts[0].date).format("YYYY-MM-DD"),
-    firstUpdate: dayjs(posts[posts.length - 1].date).format("YYYY-MM-DD"),
+  const stats: Stats = {
+    totalPosts: allPosts.length,
+    lastUpdate: dayjs(allPosts[0].date).format("YYYY-MM-DD"),
+    firstUpdate: dayjs(allPosts[allPosts.length - 1].date).format("YYYY-MM-DD"),
+    postsCountByDayForCalendar: postsCountByDayForCalendar(
+      allPosts.filter((post) => post.date > "2021-01-01")
+    ),
+    wordFrequencyDataForBumpArea: [],
+    wordFrequencyForPie: [],
+    wordFrequencyForBar: [],
+    urlFrequencyDataForBumpArea: [],
+    urlFrequencyForPie: [],
+    urlFrequencyForBar: [],
   };
+
+  // Iterate from 2020-11-01 to now with PERIOD_WEEK steps
+  for (let i = 0; ; i++) {
+    const from = nWeeksAgo((i + 1) * PERIOD_WEEK);
+    const to = nWeeksAgo(i * PERIOD_WEEK);
+    if (from < "2020-11-01") break;
+
+    console.log(from, to);
+
+    const posts = allPosts.filter(
+      (post) => post.date >= from && post.date < to
+    );
+
+    const postsByWeek = postsByPeriod(posts, "week", "YYYY-MM-DD");
+    const postsByMonth = postsByPeriod(posts, "month", "YYYY-MM");
+
+    const wordFrequencyResult = wordFrequency(posts.map((post) => post.title));
+    const urlFrequencyResult = urlFrequency(posts.map((post) => post.domain));
+
+    const wordFrequencyByWeek = postsFrequency(postsByWeek, (p) =>
+      wordFrequency(p.map((post) => post.title))
+    );
+
+    const urlFrequencyByWeek = postsFrequency(postsByWeek, (p) =>
+      urlFrequency(p.map((post) => post.domain))
+    );
+
+    stats.wordFrequencyDataForBumpArea.push(
+      frequencyDataForBumpArea(wordFrequencyResult, wordFrequencyByWeek)
+    );
+    stats.wordFrequencyForPie.push(frequencyForPie(wordFrequencyResult));
+    stats.wordFrequencyForBar.push(
+      frequencyForBar(wordFrequencyResult, wordFrequencyByWeek)
+    );
+
+    stats.urlFrequencyDataForBumpArea.push(
+      frequencyDataForBumpArea(urlFrequencyResult, urlFrequencyByWeek)
+    );
+    stats.urlFrequencyForPie.push(frequencyForPie(urlFrequencyResult));
+    stats.urlFrequencyForBar.push(
+      frequencyForBar(urlFrequencyResult, urlFrequencyByWeek)
+    );
+  }
+
+  return stats;
 }

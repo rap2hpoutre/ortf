@@ -19,8 +19,8 @@ export default function Data({ urls, words }) {
       <Back />
       <h2 className="text-2xl">Liste des sites</h2>
       <p className="text-sm text-gray-600">
-        Uniquement avec plus de 5 posts, contient probablement des spams modérés{" "}
-        <br />à postériori par reddit ou les modérateurs.
+        Uniquement avec au moins 10 posts, contient probablement des spams
+        modérés <br />à postériori par reddit ou les modérateurs.
       </p>
       <table className="table-auto border-2 bg-white m-5 text-left">
         <thead className="table-auto border-2">
@@ -43,7 +43,7 @@ export default function Data({ urls, words }) {
 
       <h2 className="text-2xl">Liste des mots dans les titres</h2>
       <p className="text-sm text-gray-600">
-        Uniquement les mots présents plus de 20 fois dans les titres.
+        Uniquement les mots présents au moins 30 fois dans les titres.
         <br />
         Les mots de liaisons ignorés dans les graphiques sont affichés ici.
       </p>
@@ -75,12 +75,12 @@ export async function getStaticProps() {
   return {
     props: {
       urls: urlFrequencyRaw(posts.map((post) => post.domain)).filter(
-        (e) => e.count > 5
+        (e) => e.count >= 10
       ),
       words: wordFrequency(
-        posts.map((post) => post.title).join(" "),
+        posts.map((post) => post.title),
         true
-      ).filter((e) => e.count > 20),
+      ).filter((e) => e.count >= 30),
     },
   };
 }

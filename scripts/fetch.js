@@ -6,20 +6,22 @@ const dayjs = require("dayjs");
   const url =
     "https://api.pushshift.io/reddit/search/submission/?subreddit=france&sort=desc&size=100&sort_type=created_utc";
   let posts = [];
-  for (let i = 0; i < 100; i++) {
+  for (let i = 0; i < 500; i++) {
     const res = await fetch(
       url + (i > 0 ? `&before=${posts[posts.length - 1].createdUtc}` : "")
     );
     const json = await res.json();
     posts = [
       ...posts,
-      ...json.data.map((post) => ({
-        date: dayjs.unix(post.created_utc).format("YYYY-MM-DD"),
-        createdUtc: post.created_utc,
-        title: post.title,
-        url: post.url,
-        domain: post.domain,
-      })),
+      ...json.data
+        .filter((e) => e.domain !== "starlightinternational786.world")
+        .map((post) => ({
+          date: dayjs.unix(post.created_utc).format("YYYY-MM-DD"),
+          createdUtc: post.created_utc,
+          title: post.title,
+          url: post.url,
+          domain: post.domain,
+        })),
     ];
     console.log(i);
   }

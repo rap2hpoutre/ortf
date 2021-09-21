@@ -3,8 +3,10 @@ import stopWords from "./stop-words";
 export function wordFrequency(string, withStopWords = false) {
   return Object.entries(
     string
+      .join(" ")
       .replace(/[.,;!?_]/g, " ")
       .toLowerCase()
+      .replace(/covid-19/g, "covid")
       .split(/\s/)
       .map((word) => word.trim())
       .filter(

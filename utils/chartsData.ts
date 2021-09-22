@@ -35,7 +35,7 @@ export function frequencyDataForBumpArea(
         .map(([week, words]: [string, any[]]) => {
           const word = words.find((word) => word.word === f.word);
           return {
-            x: dayjs(week).format("DD/MM"),
+            x: dayjs(week).add(1, "week").format("DD/MM"),
             y: word ? word.count : 0,
           };
         })
@@ -52,7 +52,7 @@ export function frequencyForBar(
   const frequencyForBar = [];
   for (const [key, value] of Object.entries(frequencyByWeek)) {
     const res = {
-      id: dayjs(key).format("DD/MM"),
+      id: dayjs(key).add(1, "week").format("DD/MM"),
     };
     for (const f of value as Array<{ word: string; count: string }>)
       res[f.word] = f.count;

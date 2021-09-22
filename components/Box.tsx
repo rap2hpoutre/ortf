@@ -24,9 +24,11 @@ export default function Box({ title, subtitle = "", children, large = false }) {
 function Navigation({ currentIndex, setCurrentIndex }) {
   const from = dayjs()
     .subtract((currentIndex + 1) * 6, "week")
+    .add(1, "week")
     .startOf("week");
   const to = dayjs()
     .subtract(currentIndex * 6, "week")
+    .add(1, "week")
     .startOf("week");
   return (
     <div className="grid grid-cols-3 mt-5 text-gray-500 text-xs">

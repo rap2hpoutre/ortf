@@ -1,4 +1,5 @@
 import dayjs from "dayjs";
+import "dayjs/locale/fr";
 import { useState } from "react";
 
 export default function Box({ title, subtitle = "", children, large = false }) {

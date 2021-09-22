@@ -1,4 +1,5 @@
 import dayjs from "dayjs";
+import "dayjs/locale/fr";
 import { wordFrequency } from "./word-frequency";
 import { urlFrequency } from "./url-frequency";
 import {
@@ -14,6 +15,7 @@ import { AreaBumpInputSerie } from "@nivo/bump";
 
 const PERIOD_WEEK = 6;
 
+dayjs.locale("fr");
 export interface Stats {
   totalPosts: number;
   lastUpdate: string;

@@ -1,5 +1,8 @@
 import { AreaBumpInputSerie } from "@nivo/bump";
 import dayjs from "dayjs";
+import "dayjs/locale/fr";
+
+dayjs.locale("fr");
 
 export type PostsCountByDayForCalendar = Array<{ day: string; value: number }>;
 export type FrequencyForBar = [string[], Record<string, string>[]];

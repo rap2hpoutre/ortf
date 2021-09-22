@@ -86,7 +86,7 @@ export default function Home({ stats }: { stats: Stats }) {
           </div>
         </div>
         <Box
-          title="Évolution des 10 mots les plus présents dans les titress"
+          title="Évolution des 10 mots les plus présents dans les titres"
           subtitle="Nombre de fois que les noms apparaissent dans les titre des posts, voir les mots exclus en bas de page"
           large={true}
         >

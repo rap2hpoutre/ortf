@@ -63,22 +63,6 @@ function nWeeksAgo(x: number) {
   return dayjs().subtract(x, "week").startOf("week").format("YYYY-MM-DD");
 }
 
-function nMonthsAgo(x: number) {
-  return dayjs().subtract(x, "month").startOf("month").format("YYYY-MM-DD");
-}
-
-function startOfNextWeek() {
-  return dayjs().startOf("week").format("YYYY-MM-DD");
-}
-
-function startOfNextMonth() {
-  return dayjs().startOf("month").format("YYYY-MM-DD");
-}
-
-function inWeekPeriod(post) {
-  return post.date >= nWeeksAgo(PERIOD_WEEK) && post.date < startOfNextWeek();
-}
-
 export default function getStats(): Stats {
   const allPosts = require("../data/france.json").filter(
     (e) => e.domain !== "starlightinternational786.world" // Seems like a spam
@@ -112,7 +96,6 @@ export default function getStats(): Stats {
     );
 
     const postsByWeek = postsByPeriod(posts, "week", "YYYY-MM-DD");
-    const postsByMonth = postsByPeriod(posts, "month", "YYYY-MM");
 
     const wordFrequencyResult = wordFrequency(posts.map((post) => post.title));
     const urlFrequencyResult = urlFrequency(posts.map((post) => post.domain));

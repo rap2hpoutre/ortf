@@ -62,7 +62,7 @@ export function frequencyForBar(
     .slice(0, 15)
     .map((e) => e.word);
 
-  return [keysForFrequencyForBar, frequencyForBar];
+  return [keysForFrequencyForBar, frequencyForBar.reverse()];
 }
 
 export function frequencyForPie(frequencyResult): FrequencyForPie {

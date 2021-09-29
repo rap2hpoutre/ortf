@@ -11,7 +11,7 @@ export default function Wrapper({ children }) {
 
       <main className="flex flex-col items-center justify-center w-full flex-1 px-2 lg:px-20 text-center">
         <div className="py-10">
-          <h1 className="text-5xl font-bold">O.R.T.F</h1>
+          <h1 className="text-5xl font-bold tracking-wider">ORTF</h1>
           <h2 className="text-xl">Statistiques de /r/france</h2>
         </div>
         {children}

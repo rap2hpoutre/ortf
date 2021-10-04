@@ -53,6 +53,7 @@ export default function Home({ stats }: { stats: Stats }) {
               colors={{ scheme: "set3" }}
               keys={stats.urlFrequencyForBar[index][0]}
               margin={{ top: 40, right: 30, bottom: 30, left: 30 }}
+              label={(d) => String(d.id).split(".")[0]}
               data={stats.urlFrequencyForBar[index][1]}
             />
           )}
@@ -123,6 +124,7 @@ export default function Home({ stats }: { stats: Stats }) {
               keys={stats.wordFrequencyForBar[index][0]}
               margin={{ top: 40, right: 30, bottom: 30, left: 30 }}
               data={stats.wordFrequencyForBar[index][1]}
+              label={(d) => String(d.id)}
             />
           )}
         </Box>
